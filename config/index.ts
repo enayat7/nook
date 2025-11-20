@@ -2,9 +2,9 @@ import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
 
-dotenv.config({ path: path.join(__dirname, '../env/.env') });
+dotenv.config({ path: path.join(__dirname, '../../env/.env') });
 
-const uriConfigPath = path.join(__dirname, '../env/.uri.config.json');
+const uriConfigPath = path.join(__dirname, '../../env/.uri.config.json');
 const uriConfig = JSON.parse(fs.readFileSync(uriConfigPath, 'utf8'));
 
 const env = process.env.NODE_ENV || 'development';
