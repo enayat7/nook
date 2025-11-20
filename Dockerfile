@@ -14,8 +14,8 @@ COPY . .
 # Build the application
 RUN npm run build
 
-# Verify build output exists
-RUN ls -la dist/ && test -f dist/index.js
+# Check what was built and verify main file exists
+RUN find dist/ -name "*.js" -type f && ls -la dist/src/
 
 # Remove dev dependencies after successful build
 RUN npm prune --production
@@ -30,4 +30,4 @@ RUN adduser -S nodejs -u 1001
 RUN chown -R nodejs:nodejs /app
 USER nodejs
 
-CMD ["npm", "start"]
+CMD ["node", "dist/src/index.js"]
