@@ -36,9 +36,9 @@ export const config = {
   
   // Database
   database: {
-    uri: buildMongoURI(),
-    options: uriConfig[env]?.mongodb?.options || {
-      maxPoolSize: 10,
+    uri: process.env.MONGO_URI || buildMongoURI(),
+    options: {
+      maxPoolSize: env === 'production' ? 20 : 10,
       serverSelectionTimeoutMS: 5000,
       socketTimeoutMS: 45000
     }
