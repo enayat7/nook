@@ -16,6 +16,7 @@ export class DatabaseConnection {
   
   public async connect(): Promise<void> {
     try {
+      logger.info(`Attempting to connect to MongoDB: ${config.database.uri.substring(0, 20)}...`);
       await mongoose.connect(config.database.uri, config.database.options);
       logger.info('MongoDB connected successfully');
     } catch (error) {
