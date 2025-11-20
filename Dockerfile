@@ -2,14 +2,32 @@ FROM node:18-alpine
 
 WORKDIR /app
 
+# Copy package files
 COPY package*.json ./
-RUN npm ci
 
+# Install all dependencies (including dev dependencies for build)
+RUN npm ci --only=production=false
+
+# Copy source code and config files
 COPY . .
-RUN npm run build && ls -la dist/ && npm prune --production
+
+# Build the application
+RUN npm run build
+
+# Verify build output exists
+RUN ls -la dist/ && test -f dist/index.js
+
+# Remove dev dependencies after successful build
+RUN npm prune --production
 
 EXPOSE 3000
 
-USER node
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nodejs -u 1001
+
+# Change ownership of app directory
+RUN chown -R nodejs:nodejs /app
+USER nodejs
 
 CMD ["npm", "start"]
