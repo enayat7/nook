@@ -1,7 +1,6 @@
 import { Response } from 'express';
 import AuthRepository from '../repositories/authRepository';
 import { emailService } from '../../../utils/email';
-import { generateToken } from '../../../utils/jwt';
 import { ResponseUtils, ErrorUtils } from '../../../utils/generic';
 import { logger } from '../../../utils/logger';
 
@@ -15,7 +14,7 @@ const sendOTP = async (email: string, res: Response): Promise<void> => {
     const otp = '1111';
     const otpExpires = new Date(Date.now() + 10 * 60 * 1000);
 
-    await AuthRepository.createOrUpdateUserOTP(email, otp, otpExpires);
+    await AuthRepository.createOrUpdateUserEmailOTP(email, otp, otpExpires);
     // Skip email sending (using fixed OTP)
     // await emailService.sendOTP(email, otp);
     
@@ -44,6 +43,9 @@ const verifyOTP = async (email: string, otp: string, res: Response, deviceInfo: 
       return ResponseUtils.badRequest(res, 'Invalid or expired OTP');
     }
 
+    // Get user details first
+    const user = await AuthRepository.findUserByEmail(email);
+
     const verifiedUserEmail = await AuthRepository.verifyUserEmail(userEmail._id.toString());
     
     if (!verifiedUserEmail) {
@@ -55,9 +57,6 @@ const verifyOTP = async (email: string, otp: string, res: Response, deviceInfo: 
     
     // Create auth token
     const authToken = await AuthRepository.createAuthToken(verifiedUserEmail.user_id, user?.type || 'user');
-    
-    // Get user details
-    const user = await AuthRepository.findUserByEmail(email);
 
     logger.info(`OTP verified for ${email}`);
     ResponseUtils.success(res, 'OTP verified successfully', {

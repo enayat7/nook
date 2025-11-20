@@ -6,17 +6,17 @@ import { SendOTPRequest, VerifyOTPRequest } from '../interfaces/auth.interface';
 const sendOTP = async (req: Request, res: Response): Promise<void> => {
   const { email }: SendOTPRequest = req.body;
 
-  if (ValidationUtils.isEmpty(email) || !ValidationUtils.isValidEmail(email)) {
+  if (ValidationUtils.isEmpty(email) || !ValidationUtils.isValidEmail(email!)) {
     return ResponseUtils.badRequest(res, 'Valid email is required');
   }
 
-  await AuthService.sendOTP(email, res);
+  await AuthService.sendOTP(email!, res);
 };
 
 const verifyOTP = async (req: Request, res: Response): Promise<void> => {
-  const { email, otp }: VerifyOTPRequest = req.body;
+  const { email, otp, device_id, device_type, model }: VerifyOTPRequest & { device_id: string; device_type: 'ios' | 'android' | 'web'; model?: string } = req.body;
 
-  if (ValidationUtils.isEmpty(email) || !ValidationUtils.isValidEmail(email)) {
+  if (ValidationUtils.isEmpty(email) || !ValidationUtils.isValidEmail(email!)) {
     return ResponseUtils.badRequest(res, 'Valid email is required');
   }
 
@@ -24,7 +24,13 @@ const verifyOTP = async (req: Request, res: Response): Promise<void> => {
     return ResponseUtils.badRequest(res, 'Valid 6-digit OTP is required');
   }
 
-  await AuthService.verifyOTP(email, otp, res);
+  const deviceInfo = {
+    device_id,
+    device_type,
+    model
+  };
+
+  await AuthService.verifyOTP(email!, otp, res, deviceInfo);
 };
 
 export default {

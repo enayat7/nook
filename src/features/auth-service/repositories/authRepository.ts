@@ -21,7 +21,7 @@ const findUserEmailWithOTP = async (email: string, otp: string): Promise<IUserEm
     email,
     otp,
     otp_expires: { $gt: new Date() }
-  }).select('+otp +otp_expires');
+  }).select('+otp +otp_expires') as IUserEmail | null;
 };
 
 const findUserMobileWithOTP = async (mobile: string, otp: string, countryCode: string = '+1'): Promise<IUserMobile | null> => {
@@ -30,7 +30,7 @@ const findUserMobileWithOTP = async (mobile: string, otp: string, countryCode: s
     country_code: countryCode,
     otp,
     otp_expires: { $gt: new Date() }
-  }).select('+otp +otp_expires');
+  }).select('+otp +otp_expires') as IUserMobile | null;
 };
 
 const createOrUpdateUserEmailOTP = async (email: string, otp: string, otpExpires: Date): Promise<{ user: IUser; userEmail: IUserEmail }> => {
