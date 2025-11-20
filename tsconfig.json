@@ -19,13 +19,7 @@
     "noImplicitThis": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "moduleResolution": "node",
-    "baseUrl": "./",
-    "paths": {
-      "@/*": ["src/*"],
-      "@config/*": ["config/*"],
-      "@db/*": ["db/*"]
-    }
+    "moduleResolution": "node"
   },
   "include": ["src/**/*", "config/**/*", "db/**/*"],
   "exclude": ["node_modules", "dist", "**/*.test.ts"]
