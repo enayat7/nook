@@ -5,7 +5,7 @@ export interface IUserDevices extends Document {
   device_id: string;
   ip_address?: string;
   device_type: 'ios' | 'android' | 'web';
-  model?: string;
+  device_model?: string;
   is_notification_allowed: boolean;
   is_device_installed: boolean;
   fcm_token?: string;
@@ -35,7 +35,7 @@ const userDevicesSchema = new Schema<IUserDevices>({
     enum: ['ios', 'android', 'web'],
     required: true
   },
-  model: {
+  device_model: {
     type: String,
     trim: true
   },
