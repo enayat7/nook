@@ -7,6 +7,7 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
+      - PORT=3000
 
   # Optional: Local MongoDB for development
   # Remove 'depends_on' from app service if using Atlas
