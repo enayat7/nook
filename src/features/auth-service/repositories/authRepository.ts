@@ -61,7 +61,7 @@ const createOrUpdateUserMobileOTP = async (mobile: string, otp: string, otpExpir
   let userMobile = await UserMobile.findOne({ mobile, country_code: countryCode });
   
   if (!userMobile) {
-    // Create new user and mobile
+    // Create new user and mobile entry
     const user = await User.create({});
     userMobile = await UserMobile.create({
       user_id: user.user_id,
@@ -72,7 +72,7 @@ const createOrUpdateUserMobileOTP = async (mobile: string, otp: string, otpExpir
     });
     return { user, userMobile };
   } else {
-    // Update existing mobile OTP
+    // Update existing mobile OTP - no new user creation
     userMobile.otp = otp;
     userMobile.otp_expires = otpExpires;
     await userMobile.save();

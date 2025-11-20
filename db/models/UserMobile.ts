@@ -42,6 +42,9 @@ const userMobileSchema = new Schema<IUserMobile>({
   timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
 });
 
-userMobileSchema.index({ user_id: 1, mobile: 1 }, { unique: true });
+// Ensure unique mobile + country_code combination
+userMobileSchema.index({ mobile: 1, country_code: 1 }, { unique: true });
+// Index for user lookups
+userMobileSchema.index({ user_id: 1 });
 
 export const UserMobile = mongoose.model<IUserMobile>('UserMobile', userMobileSchema);
