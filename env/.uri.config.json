@@ -1,0 +1,32 @@
+{
+  "development": {
+    "mongodb": {
+      "uri": "mongodb://localhost:27017/dating-app-dev",
+      "options": {
+        "maxPoolSize": 10,
+        "serverSelectionTimeoutMS": 5000,
+        "socketTimeoutMS": 45000
+      }
+    }
+  },
+  "production": {
+    "mongodb": {
+      "uri": "mongodb+srv://username:password@cluster.mongodb.net/dating-app-prod",
+      "options": {
+        "maxPoolSize": 20,
+        "serverSelectionTimeoutMS": 5000,
+        "socketTimeoutMS": 45000
+      }
+    }
+  },
+  "test": {
+    "mongodb": {
+      "uri": "mongodb://localhost:27017/dating-app-test",
+      "options": {
+        "maxPoolSize": 5,
+        "serverSelectionTimeoutMS": 5000,
+        "socketTimeoutMS": 45000
+      }
+    }
+  }
+}

@@ -1,0 +1,61 @@
+### VS Code REST Client - Dating App APIs
+### Install "REST Client" extension in VS Code to use this file
+
+@baseUrl = http://localhost:3000
+
+### Health Check
+GET {{baseUrl}}/health
+
+### ========== MOBILE OTP LOGIN ==========
+
+### Send Mobile OTP
+POST {{baseUrl}}/auth/api/mobile/send-otp
+Content-Type: application/json
+
+{
+  "mobile": "9876543210",
+  "country_code": "+1"
+}
+
+### Verify Mobile OTP
+POST {{baseUrl}}/auth/api/mobile/verify-otp
+Content-Type: application/json
+
+{
+  "mobile": "9876543210",
+  "country_code": "+1",
+  "otp": "1111",
+  "device_id": "mobile-device-456",
+  "device_type": "android",
+  "model": "Samsung Galaxy S23"
+}
+
+### Send Mobile OTP (India)
+POST {{baseUrl}}/auth/api/mobile/send-otp
+Content-Type: application/json
+
+{
+  "mobile": "9876543210",
+  "country_code": "+91"
+}
+
+### Verify Mobile OTP (India)
+POST {{baseUrl}}/auth/api/mobile/verify-otp
+Content-Type: application/json
+
+{
+  "mobile": "9876543210",
+  "country_code": "+91",
+  "otp": "1111",
+  "device_id": "india-device-789",
+  "device_type": "ios",
+  "model": "iPhone 14"
+}
+
+### ========== GOOGLE OAUTH LOGIN ==========
+
+### Google Login (Redirects to Google)
+GET {{baseUrl}}/auth/api/google/login
+
+### Google Callback (Dummy Response)
+GET {{baseUrl}}/auth/api/google/callback?code=dummy-auth-code

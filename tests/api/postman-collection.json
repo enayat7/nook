@@ -1,0 +1,93 @@
+{
+  "info": {
+    "name": "Dating App APIs",
+    "description": "Test collection for dating app APIs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        }
+      }
+    },
+    {
+      "name": "Get Dummy Users",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/test/api/users",
+          "host": ["{{baseUrl}}"],
+          "path": ["test", "api", "users"]
+        }
+      }
+    },
+    {
+      "name": "Get Dummy Matches",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/test/api/matches",
+          "host": ["{{baseUrl}}"],
+          "path": ["test", "api", "matches"]
+        }
+      }
+    },
+    {
+      "name": "Create Dummy User",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"fname\": \"John\",\n  \"lname\": \"Doe\",\n  \"gender\": \"male\",\n  \"type\": \"user\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/test/api/users",
+          "host": ["{{baseUrl}}"],
+          "path": ["test", "api", "users"]
+        }
+      }
+    },
+    {
+      "name": "Send OTP",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test@example.com\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/auth/api/send-otp",
+          "host": ["{{baseUrl}}"],
+          "path": ["auth", "api", "send-otp"]
+        }
+      }
+    }
+  ]
+}
